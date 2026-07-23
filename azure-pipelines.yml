@@ -8,9 +8,11 @@ variables:
 stages:
 - stage: 'Build'
   displayName: 'Build the web application'
-  jobs: 
+
+  jobs:
   - job: 'Build'
     displayName: 'Build job'
+
     pool:
       vmImage: 'ubuntu-22.04'
       demands:
@@ -25,6 +27,11 @@ stages:
       displayName: 'Use .NET SDK $(dotnetSdkVersion)'
       inputs:
         version: '$(dotnetSdkVersion)'
+
+    - task: NodeTool@0
+      displayName: 'Use Node.js 16'
+      inputs:
+        versionSpec: '16.x'
 
     - task: Npm@1
       displayName: 'Run npm install'
